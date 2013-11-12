@@ -99,11 +99,11 @@ char ** conjuncionA(char * antecedente,char * consecuente){
     strncat(nvoAntecedente,Y,strlen(Y));
     if(strlen(alpha)!=0){
         strncat(nvoAntecedente,",",1);
-        strncat(nvoAntecedente,alpha,strlen(alpha));
+        strncat(nvoAntecedente,alpha,strlen(alpha)+1);
     }
     if(strlen(beta)!=0){
         strncat(nvoAntecedente,",",1);
-        strncat(nvoAntecedente,beta,strlen(beta));
+        strncat(nvoAntecedente,beta,strlen(beta)+1);
     }
     printf("\t-> Nuevo Antecedente: %s\n",nvoAntecedente);
 
@@ -121,6 +121,7 @@ char ** conjuncionA(char * antecedente,char * consecuente){
     return ante_conse;
 }
 
+//DISYUNCION
 char ** disyuncionA(char * antecedente, char * consecuente, pNode * primero, pNode * ultimo){
     char ** ante_conse; //Contendra el antecedente en la posicion 0 y el consecuente en la posicion 1
     printf("ANTECEDENTE: %s\nCONSECUENTE: %s\n\n",antecedente,consecuente); //Mostramos el antecedente y el consecuente actual
@@ -233,11 +234,11 @@ char ** disyuncionA(char * antecedente, char * consecuente, pNode * primero, pNo
     strncat(nvoAntecedente,Y,strlen(Y));
     if(strlen(alpha)!=0){
         strncat(nvoAntecedente,",",1);
-        strncat(nvoAntecedente,alpha,strlen(alpha));
+        strncat(nvoAntecedente,alpha,strlen(alpha)+1);
     }
     if(strlen(beta)!=0){
         strncat(nvoAntecedente,",",1);
-        strncat(nvoAntecedente,beta,strlen(beta));
+        strncat(nvoAntecedente,beta,strlen(beta)+1);
     }
     printf("\t-> Antecedente: %s\n",nvoAntecedente);
 
@@ -256,7 +257,7 @@ char ** disyuncionA(char * antecedente, char * consecuente, pNode * primero, pNo
     return ante_conse;
 }
 
-
+//IMPLICACION
 char ** implicacionA(char * antecedente, char * consecuente, pNode * primero, pNode * ultimo){
     char ** ante_conse; //Contendra el antecedente en la posicion 0 y el consecuente en la posicion 1
     printf("ANTECEDENTE: %s\nCONSECUENTE: %s\n\n",antecedente,consecuente); //Mostramos el antecedente y el consecuente actual
@@ -339,11 +340,11 @@ char ** implicacionA(char * antecedente, char * consecuente, pNode * primero, pN
     strncat(nvoAntecedente,Y,strlen(Y));
     if(strlen(alpha)!=0){
         strncat(nvoAntecedente,",",1);
-        strncat(nvoAntecedente,alpha,strlen(alpha));
+        strncat(nvoAntecedente,alpha,strlen(alpha)+1);
     }
     if(strlen(beta)!=0){
         strncat(nvoAntecedente,",",1);
-        strncat(nvoAntecedente,beta,strlen(beta));
+        strncat(nvoAntecedente,beta,strlen(beta)+1);
     }
     printf("\n\t--> Razonamiento 1\n");
     printf("\t-> Nuevo Antecedente: %s\n",nvoAntecedente);
@@ -394,7 +395,7 @@ char ** implicacionA(char * antecedente, char * consecuente, pNode * primero, pN
     return ante_conse;
 }
 
-
+//DOBLE IMPLICACION
 char ** dobleImplicaA(char * antecedente, char * consecuente, pNode * primero, pNode * ultimo){
     char ** ante_conse; //Contendra el antecedente en la posicion 0 y el consecuente en la posicion 1
     printf("ANTECEDENTE: %s\nCONSECUENTE: %s\n\n",antecedente,consecuente); //Mostramos el antecedente y el consecuente actual
@@ -470,11 +471,12 @@ char ** dobleImplicaA(char * antecedente, char * consecuente, pNode * primero, p
     Y = strncat(Y,XY[1],strlen(XY[1])+1);
 
     //Obtenemos al nuevo antecedente y el consecuente:
-    tamanio = strlen(Y)+strlen(alpha)+strlen(beta)+1;
+    tamanio = strlen(X)+strlen(Y)+strlen(alpha)+strlen(beta)+1;
     //printf("NUEVO TAMANIO PARA NVOANTECEDENTE: %d\n",tamanio);
     nvoAntecedente = (char*)calloc(tamanio+3,sizeof(char));
-
-    strncat(nvoAntecedente,Y,strlen(Y));
+    strncat(nvoAntecedente,X,strlen(X)+1);
+    strncat(nvoAntecedente,",",1);
+    strncat(nvoAntecedente,Y,strlen(Y)+1);
     if(strlen(alpha)!=0){
         strncat(nvoAntecedente,",",1);
         strncat(nvoAntecedente,alpha,strlen(alpha));
@@ -504,25 +506,27 @@ char ** dobleImplicaA(char * antecedente, char * consecuente, pNode * primero, p
     //printf("NUEVO TAMANIO PARA NVOANTECEDENTE: %d\n",tamanio);
     nvoAntecedente = (char*)calloc(tamanio+3,sizeof(char));
     if(strlen(alpha)!=0){
-        strncat(nvoAntecedente,alpha,strlen(alpha));
+        strncat(nvoAntecedente,alpha,strlen(alpha)+1);
     }
     if(strlen(alpha)!=0 && strlen(beta)!=0 ){
         strncat(nvoAntecedente,",",1);
     }
     if(strlen(beta)!=0){
-        strncat(nvoAntecedente,beta,strlen(beta));
+        strncat(nvoAntecedente,beta,strlen(beta)+1);
     }
     printf("\t-> Antecedente: %s\n",nvoAntecedente);
 
-    tamanio = strlen(X)+strlen(gamma)+1;
+    tamanio = strlen(X)+strlen(Y)+strlen(gamma)+3;
     nvoConsecuente = (char*)calloc(tamanio,sizeof(char));
     strncat(nvoConsecuente,X,strlen(X)+1);
     strncat(nvoConsecuente,",",1);
-    strncat(nvoConsecuente,consecuente,strlen(consecuente)+1);
+    strncat(nvoConsecuente,Y,strlen(Y)+1);
+    strncat(nvoConsecuente,",",1);
+    strncat(nvoConsecuente,gamma,strlen(gamma)+1);
     printf("\t-> Consecuente: %s\n",nvoConsecuente);
 
     //Copiamos a una nueva cadena:
-    tamanio = strlen(nvoAntecedente)+strlen(nvoConsecuente)+2;
+    tamanio = strlen(nvoAntecedente)+strlen(nvoConsecuente)+3;
     char * razonamientoPila = (char*)calloc(tamanio,sizeof(char));
     strncat(razonamientoPila,nvoAntecedente,strlen(nvoAntecedente)+1);
     strncat(razonamientoPila,"=",1);
@@ -531,6 +535,20 @@ char ** dobleImplicaA(char * antecedente, char * consecuente, pNode * primero, p
     add(primero,ultimo,razonamientoPila);
     return ante_conse;
 }
+
+
+/*Reglas del consecuente*/
+
+//NEGADO
+char ** negadoC(){
+
+}
+
+//CONJUNCION
+ char ** conjuncionC(char * antecedente, char * consecuente, pNode * primero, pNode * ultimo){
+
+ }
+
 
 
 //Funcion para aplicar la regla en base al operador y al la bandera (A o C)
@@ -562,7 +580,7 @@ char ** aplicarRegla(char regla,char flag, char * antecedente, char * consecuent
 		}
 		else if(regla=='&'){
 			printf("\tAplicando regla de <=> en el Antecedente\n\n");
-			//dobleImplA(antecedente,consecuente,primero,ultimo);
+			ante_conse = dobleImplicaA(antecedente,consecuente,primero,ultimo);
 		}
 		else{
 			printf("\tNo se aplicara ninguna regla\n");

@@ -12,7 +12,7 @@ void menu(){
     printf("\t v \t Disyuncion\t v \n");
     printf("\t ~ \t Negado\t \n");
     printf("\t & \t Bicondicional\t <=> \n");
-    printf("\n\nIntrduce el razonamiento a verificar\n> ");
+    printf("\n\nIntrduce el razonamiento a verificar:\n(PAT)> ");
 }
 
 int main(){
