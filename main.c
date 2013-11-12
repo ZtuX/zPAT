@@ -4,14 +4,16 @@
 
 void menu(){
     printf("\n");
-    printf("\tPrueba Automatica de Teoremas (PAT)\n\n");
+    printf("==================================================\n");
+    printf("\tPrueba Automatica de Teoremas (PAT)\n");
+    printf("==================================================\n");
     printf("Simbologia:\n");
-    printf("\t = \t Implicacion Tautologica\t => \n");
-    printf("\t > \t Implicacion\t -> \n");
-    printf("\t ^ \t Conjuncion\t ^ \n");
-    printf("\t v \t Disyuncion\t v \n");
-    printf("\t ~ \t Negado\t \n");
-    printf("\t & \t Bicondicional\t <=> \n");
+    printf("\t| = \t| Implicacion T\t| =>\t|\n");
+    printf("\t| > \t| Implicacion\t| ->\t| \n");
+    printf("\t| ^ \t| Conjuncion\t| ^\t| \n");
+    printf("\t| v \t| Disyuncion\t| v\t| \n");
+    printf("\t| ~ \t| Negado\t| 7\t|\n");
+    printf("\t| & \t| Bicondicional\t| <=>\t| \n");
     printf("\n\nIntrduce el razonamiento a verificar:\n(PAT)> ");
 }
 
@@ -32,7 +34,10 @@ int main(){
     //SEPARAMOS EN ANTECEDENTE Y CONSECUENTE EL RAZONAMIENTO AUXILIAR PARA
     //MOSTRARLO EN PANTALLA AL FINAL
     char ** rAux = split(razonamiento,"=");
-
+    if (stringArraySize(rAux)<2){
+        printf("[Error] Falta el operador '=>'\n");
+        return -1;
+    }
     //AGREGAMOS A LA COLA EL RAZONAIENTO INGRESADO
     add(&primero,&ultimo,razonamiento);
     //LEEMOS EL RAZONAMIENTO INGRESADO DE LA COLA
