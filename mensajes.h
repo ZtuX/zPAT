@@ -1,3 +1,18 @@
+#define nComandos 6
+
+char * comandos [] = {"ayuda","a","salir","s","invalido","i"};
+
+int esComando(char * comando){
+    //regresa un 1 si es un comando, en caso comtrario 0
+    int i;
+    for(i=0;i<nComandos;i++){
+        if(strncmp(comandos[i],comando,strlen(comando))==0){
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void simbologia(){
     printf("\n");
     printf("Simbologia:\n");
@@ -25,6 +40,7 @@ void mostrarAyuda(){
     printf("\ta^b>c = ~(a^b),c&f\n");
     printf("- - - - - - - - - - - - -\n");
     printf("[COMANDOS] Comandos del PAT\n");
-    printf("* \"salir\" o \"s\"\t-> Salir del programa\n");
-    printf("* \"ayuda\" o \"h\"\t-> Muestra la ayuda\n");
+    printf("* \"salir\" o \"s\" -> Salir del programa\n");
+    printf("* \"ayuda\" o \"h\" -> Muestra la ayuda\n");
+    printf("* \"invalido\" o \"i\" -> Muestra el ultimo razonamiento invalido\n");
 }

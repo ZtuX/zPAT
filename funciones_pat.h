@@ -23,11 +23,11 @@ void mostrarInfoRazonamiento(RAZONAMIENTO R){
 
 void mostrarRazonamiento(char *antecedent,char *consequent){
     if (antecedent==NULL)
-        printf("Razonamiento:\n\t=> %s\n",consequent);
+        printf("\n\t=> %s\n",consequent);
     else if (consequent==NULL)
-        printf("Razonamiento:\n\t%s => \n",antecedent);
+        printf("\n\t%s =>\n",antecedent);
     else
-        printf("Razonamiento:\n\t%s => %s \n",antecedent,consequent);
+        printf("\n\t%s => %s\n",antecedent,consequent);
 }
 
 
@@ -309,7 +309,7 @@ char **recorreDesdePosicionUnoEnUno(char ** fuente,int inicio){
 
 char ** bloqueA(char ** arreglo){
     //Nueva cadena auxiliar
-    printf("BLOQUE A\n");
+    //printf("BLOQUE A\n");
     char * newString = NULL;
     char bandera = 'C'; //Bandera para continuar o detener el ciclo
     int tamanio, i=0;

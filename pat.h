@@ -30,10 +30,10 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
     //Separar en antecedente y consecuente
     char ** Array=NULL;
     Array = split(razonamiento,"=\r\n"); //SE SEPARARAN POR =
-    if (stringArraySize(Array)>2){
+    /*if (stringArraySize(Array)>2){
         printf("[Error] El operador '=>' encontrado mas de una vez\n");
         return -1;
-    }
+    }*/
 
     //CREAMOS LA ESTRUCTIRA DE UN NUEVO RAZONAMIENTO
     RAZONAMIENTO R = NULL;
@@ -44,7 +44,7 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
     R->Antecedente = Array[0]; //strcpy(R->Antecedente,Array[0]);
     R->Consecuente = Array[1]; //strcpy(R->Consecuente,Array[1]);
     //mostrarInfoRazonamiento(R);
-    printf("\n");
+    //printf("\n");
     mostrarRazonamiento(R->Antecedente,R->Consecuente);
 
     //CONTAR OPERADORES EN EL ANTECEDENTE Y CONSECUENTE */
@@ -113,9 +113,9 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
             //printf("[3] Trabajando con %s\n",R->trabajando);
             //printf("ARRAY[i]: %s\n",Array[i]);
             if((R->opTrabajando=getOperadorTrabajar(Array[i]))!='-'){
-                printf("\n\n[REGLA] Se aplicara la regla %c del %s en \"%s\"\n\n",R->opTrabajando,flag[R->nFlag],R->trabajando);
+                printf("\n[REGLA] Se aplicara la regla \"%c\" del %s en \"%s\"\n",R->opTrabajando,flag[R->nFlag],R->trabajando);
                 ANTE_CONSE = aplicarRegla(R->opTrabajando,R->flag,R->Antecedente,R->Consecuente,primero,ultimo);
-                printf("\n[*] SE APLICO LA REGLA CORRECTAMENTE\n");
+                //printf("\n[*] SE APLICO LA REGLA CORRECTAMENTE\n");
                 //i++; //Eliminar esta operacion
                 /*Cambiar a la cadena con quien se trabaja*/
                 //return 0;
@@ -167,15 +167,15 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
 	/*PASO 5: verificar que exista por lo menos una vez un _____ en ambos lados de la expresion*/
     if(contador==2){
         /*Verificar que exista un operando repetido...*/
-        printf("[*] Verificando la validez del razonamiento...\n");
+        //[*]printf("[*] Verificando la validez del razonamiento...\n");
         valido = esValido(R->Antecedente,R->Consecuente);
         if(valido==1){
-            printf("[VALIDO] El razonamiento es valido\n\n");
-            mostrarRazonamiento(R->Antecedente,R->Consecuente);
+            printf("[+] Razonamiento valido\n");
+            //mostrarRazonamiento(R->Antecedente,R->Consecuente);
             return 1;
         }else{
-            printf("[INVALIDO] El razonamiento es invalido\n\n");
-            mostrarRazonamiento(R->Antecedente,R->Consecuente);
+            //[*]printf("[INVALIDO] El razonamiento es invalido\n\n");
+            //mostrarRazonamiento(R->Antecedente,R->Consecuente);
             return 0;
         }
     }
