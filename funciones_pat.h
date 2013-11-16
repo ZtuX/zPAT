@@ -309,14 +309,14 @@ char **recorreDesdePosicionUnoEnUno(char ** fuente,int inicio){
 
 char ** bloqueA(char ** arreglo){
     //Nueva cadena auxiliar
-    //printf("BLOQUE A\n");
+    printf("BLOQUE A\n");
     char * newString = NULL;
     char bandera = 'C'; //Bandera para continuar o detener el ciclo
     int tamanio, i=0;
     while(bandera=='C'){
         //Analizar si existe var-negado en todo el arreglo
         if((esOperadorSN(arreglo[i][0])==0) && (arreglo[i+1][0]=='~') ){
-            tamanio = strlen(arreglo[i+1])+strlen(arreglo[i])+2;
+            tamanio = strlen(arreglo[i+1])+strlen(arreglo[i])+5;
             newString = (char*)calloc(tamanio,sizeof(char));
             strcat(newString,"(");
             strcat(newString,arreglo[i+1]);
@@ -389,8 +389,9 @@ char ** identificaXY(char * cadena_np,int n_operadores){
         return XY;
     }else{
         //BLOQUE A
-        //XY = bloqueA(XY);
-        //n_operadores = n_operadores-contadorNegados(XY);
+        //Busca los negados
+        XY = bloqueA(XY);
+        n_operadores = n_operadores-contadorNegados(XY);
         //printf("FIN BLOQUE A\n");
         //XY = bloqueB(XY);
         //printf("FIN BLOQUE B\n");
