@@ -39,10 +39,20 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
     RAZONAMIENTO R = NULL;
     R = (RAZONAMIENTO)calloc(1,sizeof(RAZONAMIENTO));
     R->Antecedente = (char*)calloc(strlen(Array[0])+1,sizeof(char)+1);
-    R->Consecuente = (char*)calloc(strlen(Array[1])+1,sizeof(char)+1);
+    if(stringArraySize(Array)==1){
+        //Si se creo solo un arreglo de un elemento
+        R->Consecuente = (char*)calloc(2,sizeof(char)+1);
+    }else{
+        R->Consecuente = (char*)calloc(strlen(Array[1])+1,sizeof(char)+1);
+    }
     R->trabajando = NULL;
     R->Antecedente = Array[0]; //strcpy(R->Antecedente,Array[0]);
-    R->Consecuente = Array[1]; //strcpy(R->Consecuente,Array[1]);
+    if(stringArraySize(Array)==1){
+        //En caso de no tener nada en el consecuente
+        strncpy(R->Consecuente," ",1);
+    }else{
+        R->Consecuente = Array[1]; //strcpy(R->Consecuente,Array[1]);
+    }
     //mostrarInfoRazonamiento(R);
     //printf("\n");
     mostrarRazonamiento(R->Antecedente,R->Consecuente);

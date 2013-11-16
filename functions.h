@@ -67,7 +67,7 @@ char **split(char * string_toSplit,char *symbol){
     int n_spaces = 0;
     char **stringArray = NULL;
 
-    //If the fisrt element is the symbol:
+    //Si el primer caracter es el simbolo:
     if(string_toSPLIT[0]==symbol[0]){
         stringArray = (char**)realloc(stringArray,sizeof(char*)*++n_spaces);
         stringArray[n_spaces-1] = (char*)calloc(2,sizeof(char));

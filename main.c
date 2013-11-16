@@ -40,7 +40,7 @@ int main(){
             else if(strncmp("i",razonamiento,1)==0 || strncmp("invalido",razonamiento,8)==0){
                 if(rInvalido!=NULL){
                     rInvalidoAux = split(rInvalido,"=");
-                    printf("[+] Razonamiento invalido\n");
+                    printf("[+] Ultimo razonamiento invalido\n");
                     mostrarRazonamiento(rInvalidoAux[0],rInvalidoAux[1]);
                 }else{
                     printf("[!] No existe algun razonamiento invalido\n");

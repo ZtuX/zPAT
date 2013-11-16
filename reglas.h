@@ -631,7 +631,106 @@ char ** dobleImplicaA(char * antecedente, char * consecuente, pNode * primero, p
 /*Reglas del consecuente*/
 
 //NEGADO
-char ** negadoC(){
+char ** negadoC(char * antecedente, char * consecuente){
+    char ** ante_conse; //Contendra el antecedente en la posicion 0 y el consecuente en la posicion 1
+    printf("ANTECEDENTE: %s\nCONSECUENTE: %s\n\n",antecedente,consecuente); //Mostramos el antecedente y el consecuente actual
+
+    //Variables para alfa, beta, gama, X, Y
+    char * alpha, *beta, *gamma, *X, *Y , **strAux;
+    char *simbolos, **XY;
+    int MS,indice,tamanioArreglo=0,tamanio=0,comas=0;
+
+    //Variables locales que almacenaran el nuevo antecedente y consecuente
+    char * nvoAntecedente=NULL, *nvoConsecuente;
+
+    //Creamos arreglo para alpha (es igual al antecedente)
+    alpha = (char*)calloc(strlen(antecedente)+1,sizeof(char));
+    strncat(alpha,antecedente,strlen(antecedente)+1);
+
+    //Hacemos una busqueda de donde se encuentre que el
+    //operador ~ (MS), se guardara la primer coincidencia
+
+    //Dividimos el consecuente en un arreglo (separado por comas)
+    strAux = split(consecuente,",");
+    tamanioArreglo = stringArraySize(strAux); //Calculamos el tamaño del arreglo
+    simbolos = identificarSimbolosEnArreglo(consecuente); //Guardamos en un arreglo los simbolos
+    MS = posSimbolo(simbolos,'~'); //Buscamos la posicion del Simbolo
+    //printf("MS: %d\n",MS);
+    printf("\t-> Alpha: %s\n",alpha); //Mostramos alpha
+
+    //Guardamos a beta:
+    //Calculamos el tamanio de la nueva cadena:
+    for(indice=0;indice<MS;indice++){
+        tamanio += strlen(strAux[indice]);
+    }
+    //printf("NUEVO TAMANIO PARA ALPHA: %d\n",tamanio+indice); //Se suma indice para las comas
+    beta = (char*)calloc(tamanio+indice+1,sizeof(char)); //Asignamos tamaño para beta
+    //Copiamos a alpha las cadenas:
+    for(indice=0;indice<MS;indice++){
+        strncat(beta,strAux[indice],strlen(strAux[indice]));
+        if(indice!=MS-1){
+            strncat(beta,",",1);
+        }
+    }
+    printf("\t-> Beta: %s\n",beta);
+
+    //Guardamos a gamma:
+    //Calculamos el tamanio de la nueva cadena:
+    tamanio=0;
+    for(indice=MS+1;indice<tamanioArreglo;indice++){
+        tamanio += strlen(strAux[indice]);
+        comas++;
+    }
+    tamanio+=comas; //Se suma "comas" para las comas
+    //printf("NUEVO TAMANIO PARA BETA: %d\n",tamanio);
+    gamma = (char*)calloc(tamanio,sizeof(char)); //Asignamos tamaño para alpha
+    //Copiamos a beta las cadenas:
+    for(indice=MS+1;indice<tamanioArreglo;indice++){
+        strncat(gamma,strAux[indice],strlen(strAux[indice]));
+        if(indice!=tamanioArreglo-1){
+            strncat(gamma,",",1);
+        }
+    }
+    printf("\t-> Gamma: %s\n",gamma);
+
+    //Obtener a "X" y a "Y"
+    XY = buscarXY(strAux[MS]);
+    printf("\t-> X: %s\n",XY[0]);
+    X = (char*)calloc(strlen(XY[0])+1,sizeof(char));
+    X = strncat(X,XY[0],strlen(XY[0])+1);
+
+    //Obtenemos al nuevo antecedente:
+    tamanio = strlen(X)+strlen(alpha)+1;
+    //printf("NUEVO TAMANIO PARA NVOANTECEDENTE: %d\n",tamanio);
+    nvoAntecedente = (char*)calloc(tamanio+3,sizeof(char));
+    strncat(nvoAntecedente,X,strlen(X)+1);
+    if(strlen(alpha)!=0){
+        strncat(nvoAntecedente,",",1);
+        strncat(nvoAntecedente,alpha,strlen(alpha)+1);
+    }
+    printf("\t-> Nuevo Antecedente: %s\n",nvoAntecedente);
+
+    //Nuevo consecuente:
+    nvoConsecuente = (char*)calloc(strlen(beta)+strlen(gamma)+1,sizeof(char));
+    if(strlen(beta)!=0){
+        strncat(nvoConsecuente,beta,strlen(beta)+1);
+    }
+    if(strlen(beta)!=0 && strlen(gamma)!=0){
+        strncat(nvoConsecuente,",",1);
+    }
+    if(strlen(gamma)!=0){
+        strncat(nvoConsecuente,gamma,strlen(gamma)+1);
+    }
+    printf("\t-> Nuevo Consecuente: %s\n",nvoConsecuente);
+
+    //Copiamos al arreglo de cadenas
+    ante_conse = (char**)calloc(1,sizeof(char));
+    ante_conse[0] = (char*)calloc(strlen(nvoAntecedente)+1,sizeof(char));
+    ante_conse[1] = (char*)calloc(strlen(nvoConsecuente)+1,sizeof(char));
+    strncat(ante_conse[0],nvoAntecedente,strlen(nvoAntecedente)+1);
+    strncat(ante_conse[1],nvoConsecuente,strlen(nvoConsecuente)+1);
+
+    return ante_conse;
 
 }
 
@@ -1157,7 +1256,7 @@ char ** aplicarRegla(char regla,char flag, char * antecedente, char * consecuent
 
 		if(regla=='~'){
 			//[*]printf("\tAplicando regla del Negado en el Consecuente\n\n");
-			//negadoC(antecedente,consecuente);
+			ante_conse = negadoC(antecedente,consecuente);
 		}
 		else if(regla=='^'){
 			//[*]printf("\tAplicando regla de Conjuncion en el Consecuente\n\n");
