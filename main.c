@@ -9,6 +9,7 @@ int main(){
     pNode primero = NULL, ultimo=NULL;
     int vFlag = 1; //Bandera que verifica si un razonamiento es valido o no
     int validez, invalidos=0, validos=0, total=0, Bool=1;
+    int cuenta=0; //
     char * razonamientoEnCola; //Variable que saca un razonamiento de la cola
     char ** rCola; //Mostrara el razonamiento que esta en la cola
     char * rInvalido = NULL, **rInvalidoAux=NULL; //Para mostrar el ultimo razonamiento invalido
@@ -24,7 +25,7 @@ int main(){
 
     while(Bool==1){
         //MENU
-        consola();
+        consola(cuenta);
         //INGRESAR LA CADENA
         razonamiento = readString();
         rAux = split(razonamiento,"=");
@@ -85,6 +86,7 @@ int main(){
             //VACIAMOS LA COLA
             primero=ultimo=NULL;
         }
+        cuenta++;
     }
     return 0;
 }

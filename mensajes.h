@@ -24,8 +24,8 @@ void simbologia(){
     printf("| & \t| Bicondicional\t| <=>\t| \n");
 }
 
-void consola(){
-    printf("(PAT) ");
+void consola(int cuenta){
+    printf("($%d PAT) ",cuenta);
 }
 
 void mostrarAyuda(){
@@ -34,13 +34,13 @@ void mostrarAyuda(){
     printf("Para ingresar un razonamiento es necesario hacer uso de la simbología\n");
     printf("establecida:\n");
     simbologia();
-    printf("\nPor ejemplo si se requiere ingresar la siguiente expresion:\n");
+    printf("\nPor ejemplo si se quiere ingresar la siguiente expresion:\n");
     printf("\ta^b->c => 7(a^b),c <-> f\n");
     printf("Se tendria que hacer de la siguiente manera:\n");
     printf("\ta^b>c = ~(a^b),c&f\n");
     printf("- - - - - - - - - - - - -\n");
     printf("[COMANDOS] Comandos del PAT\n");
     printf("* \"salir\" o \"s\" -> Salir del programa\n");
-    printf("* \"ayuda\" o \"h\" -> Muestra la ayuda\n");
+    printf("* \"ayuda\" o \"a\" -> Muestra la ayuda\n");
     printf("* \"invalido\" o \"i\" -> Muestra el ultimo razonamiento invalido\n");
 }

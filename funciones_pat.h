@@ -362,7 +362,7 @@ char ** bloqueB(char ** arreglo){
             printf("DESPUES:\n");
             showArray(arreglo);
         }else{
-            i++; if(i==stringArraySize(arreglo)) bandera='S';
+            i++; if(i==stringArraySize(arreglo)-1) bandera='S';
         }
     }
     return arreglo;
@@ -431,7 +431,7 @@ char ** identificaXY(char * cadena_np,int n_operadores){
                 i++;
             }
         }
-
+        XY = bloqueA(XY);
     }
     return XY;
 
