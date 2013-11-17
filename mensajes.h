@@ -1,6 +1,6 @@
-#define nComandos 6
+#define nComandos 8
 
-char * comandos [] = {"ayuda","a","salir","s","invalido","i"};
+char * comandos [] = {"ayuda","a","salir","s","invalido","i","limpiar","l"};
 
 int esComando(char * comando){
     //regresa un 1 si es un comando, en caso comtrario 0

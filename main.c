@@ -47,6 +47,9 @@ int main(){
                     printf("[!] No existe algun razonamiento invalido\n");
                 }
             }
+            else if(strncmp("l",razonamiento,1)==0 || strncmp("limpiar",razonamiento,7)==0){
+                system("clear");
+            }
         }
         else if(stringArraySize(rAux)<2){
                 printf("[Error] Falta el operador '=>'\n");
