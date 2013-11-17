@@ -72,11 +72,19 @@ char ** negadoA(char * antecedente,char * consecuente){
     }
     printf("\t-> Beta: %s\n",beta);
 
-    //Obtener a "X" y a "Y"
-    XY = buscarXY(strAux[MS]);
-    printf("\t-> X: %s\n",XY[0]);
-    X = (char*)calloc(strlen(XY[0])+1,sizeof(char));
-    X = strncat(X,XY[0],strlen(XY[0])+1);
+    if(contarNegados(strAux[MS])==1){
+        strAux[MS]=limpiarParentesis(strAux[MS]);
+        //printf("STR: %s\n",strAux[MS]);
+        X =(char*)calloc(strlen(strAux[MS]),sizeof(char));
+        strncat(X,strAux[MS]+1,strlen(strAux[MS]));
+        printf("\t-> X: %s\n",X);
+    }else{
+        //Obtener a "X" y a "Y"
+        XY = buscarXY(strAux[MS]);
+        printf("\t-> X: %s\n",XY[0]);
+        X = (char*)calloc(strlen(XY[0])+1,sizeof(char));
+        X = strncat(X,XY[0],strlen(XY[0])+1);
+    }
 
     //Obtenemos al nuevo antecedente:
     tamanio = strlen(alpha)+strlen(beta)+1;
@@ -132,7 +140,7 @@ char ** conjuncionA(char * antecedente,char * consecuente){
     simbolos = identificarSimbolosEnArreglo(antecedente); //Guardamos en un arreglo los simbolos
     MS = posSimbolo(simbolos,'^'); //Buscamos la posicion del Simbolo
     //printf("MS: %d\n",MS);
-    //[*]printf("\t-> Gama: %s\n",gamma); //Mostramos gamma
+    printf("\t-> Gama: %s\n",gamma); //Mostramos gamma
 
 
     //Guardamos a alpha:
@@ -149,7 +157,7 @@ char ** conjuncionA(char * antecedente,char * consecuente){
             strncat(alpha,",",1);
         }
     }
-    //[*]printf("\t-> Alpha: %s\n",alpha);
+    printf("\t-> Alpha: %s\n",alpha);
 
     //Guardamos a beta:
     //Calculamos el tamanio de la nueva cadena:
@@ -168,13 +176,13 @@ char ** conjuncionA(char * antecedente,char * consecuente){
             strncat(beta,",",1);
         }
     }
-    //[*]printf("\t-> Beta: %s\n",beta);
+    printf("\t-> Beta: %s\n",beta);
 
 
     //Obtener a "X" y a "Y"
     XY = buscarXY(strAux[MS]);
-    //[*]printf("\t-> X: %s\n",XY[0]);
-    //[*]printf("\t-> Y: %s\n",XY[1]);
+    printf("\t-> X: %s\n",XY[0]);
+    printf("\t-> Y: %s\n",XY[1]);
     X = (char*)calloc(strlen(XY[0])+1,sizeof(char));
     Y = (char*)calloc(strlen(XY[1])+1,sizeof(char));
     X = strncat(X,XY[0],strlen(XY[0])+1);
@@ -196,19 +204,19 @@ char ** conjuncionA(char * antecedente,char * consecuente){
         strncat(nvoAntecedente,",",1);
         strncat(nvoAntecedente,beta,strlen(beta)+1);
     }
-    //[*]printf("\t-> Nuevo Antecedente: %s\n",nvoAntecedente);
+    printf("\t-> Nuevo Antecedente: %s\n",nvoAntecedente);
 
     nvoConsecuente = (char*)calloc(strlen(consecuente+1),sizeof(char));
     strncat(nvoConsecuente,consecuente,strlen(consecuente)+1);
-    //[*]printf("\t-> Nuevo Consecuente: %s\n",nvoConsecuente);
+    printf("\t-> Nuevo Consecuente: %s\n",nvoConsecuente);
 
     //Copiamos al arreglo de cadenas
     ante_conse = (char**)calloc(1,sizeof(char));
-    ante_conse[0] = (char*)calloc(strlen(nvoAntecedente)+1,sizeof(char));
-    ante_conse[1] = (char*)calloc(strlen(nvoConsecuente)+1,sizeof(char));
+    ante_conse[0] = (char*)calloc(strlen(nvoAntecedente)+1,sizeof(char)+1);
+    ante_conse[1] = (char*)calloc(strlen(nvoConsecuente)+1,sizeof(char)+1);
     strncat(ante_conse[0],nvoAntecedente,strlen(nvoAntecedente)+1);
     strncat(ante_conse[1],nvoConsecuente,strlen(nvoConsecuente)+1);
-
+    //[*]printf("\t-> Nuevo Consecuente D: : %s\n",ante_conse[1]);
     return ante_conse;
 }
 
@@ -694,10 +702,25 @@ char ** negadoC(char * antecedente, char * consecuente){
     printf("\t-> Gamma: %s\n",gamma);
 
     //Obtener a "X" y a "Y"
-    XY = buscarXY(strAux[MS]);
+
+    if(contarNegados(strAux[MS])==1){
+        strAux[MS]=limpiarParentesis(strAux[MS]);
+        //printf("STR: %s\n",strAux[MS]);
+        X =(char*)calloc(strlen(strAux[MS]),sizeof(char));
+        strncat(X,strAux[MS]+1,strlen(strAux[MS]));
+        printf("\t-> X: %s\n",X);
+    }else{
+        //Obtener a "X" y a "Y"
+        XY = buscarXY(strAux[MS]);
+        printf("\t-> X: %s\n",XY[0]);
+        X = (char*)calloc(strlen(XY[0])+1,sizeof(char));
+        X = strncat(X,XY[0],strlen(XY[0])+1);
+    }
+
+    /*XY = buscarXY(strAux[MS]);
     printf("\t-> X: %s\n",XY[0]);
     X = (char*)calloc(strlen(XY[0])+1,sizeof(char));
-    X = strncat(X,XY[0],strlen(XY[0])+1);
+    X = strncat(X,XY[0],strlen(XY[0])+1);*/
 
     //Obtenemos al nuevo antecedente:
     tamanio = strlen(X)+strlen(alpha)+1;

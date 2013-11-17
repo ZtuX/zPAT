@@ -43,4 +43,5 @@ void mostrarAyuda(){
     printf("* \"salir\" o \"s\" -> Salir del programa\n");
     printf("* \"ayuda\" o \"a\" -> Muestra la ayuda\n");
     printf("* \"invalido\" o \"i\" -> Muestra el ultimo razonamiento invalido\n");
+    printf("* \"limpiar\" o \"l\" -> Limpia la pantalla\n");
 }

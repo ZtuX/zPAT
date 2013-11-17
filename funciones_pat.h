@@ -66,6 +66,20 @@ int identificarMasOperadores(int A, int C){
     }
 }
 
+char * limpiarParentesis(char *cadena){
+    //Quita los parentesis del inicio y del final de una cadena
+    char * nueva;
+    int i;
+    if(cadena[0]=='(' && cadena[strlen(cadena)-1]==')'){
+        nueva = (char*)calloc(strlen(cadena)-1,sizeof(char));
+        for(i=0;i<strlen(cadena)-2;i++){
+            nueva[i]=cadena[i+1];
+        }
+        return nueva;
+    }
+    return cadena;
+}
+
 char getUltimoOperador(char * str){
     /*Regresa el ultimo caracter de una cadena*/
     //printf("CADENA A OBTENER EL ULTIMO OP: %s\n",str);
@@ -378,6 +392,17 @@ int contadorNegados(char ** arr){
     return negados;
 }
 
+int contarNegados(char * cadena){
+    //Cuenta negados de una cadena
+    int i=0,contador=0;
+    for(i=0;i<strlen(cadena)-1;i++){
+        if(cadena[i]=='~'){
+            contador++;
+        }
+    }
+    return contador;
+}
+
 /*Identifica a X y a Y*/
 char ** identificaXY(char * cadena_np,int n_operadores){
     char **XY,**XY_aux,bandera='S';
@@ -433,6 +458,7 @@ char ** identificaXY(char * cadena_np,int n_operadores){
         }
         XY = bloqueA(XY);
     }
+    printf("MARCA\n");
     return XY;
 
 }
