@@ -58,7 +58,7 @@ int identificar(char c){
 
 char * notacionPolaca(char * expresion){
 	char * auxExpresion = NULL;
-	auxExpresion = (char*)calloc(strlen(expresion),sizeof(char));
+	auxExpresion = (char*)calloc(strlen(expresion)+1,sizeof(char));
 	strcpy(auxExpresion,expresion);
     //printf("EXPRESION: %s\n\n\n",expresion);
     char MARCA = '#';
