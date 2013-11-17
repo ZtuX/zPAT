@@ -331,13 +331,13 @@ char ** bloqueA(char ** arreglo){
         //Analizar si existe var-negado en todo el arreglo
         if((esOperadorSN(arreglo[i][0])==0) && (arreglo[i+1][0]=='~') ){
             tamanio = strlen(arreglo[i+1])+strlen(arreglo[i])+5;
-            newString = (char*)calloc(tamanio,sizeof(char));
+            newString = (char*)calloc(tamanio+1,sizeof(char));
             strcat(newString,"(");
             strcat(newString,arreglo[i+1]);
             strcat(newString,arreglo[i]);
             strcat(newString,")");
-            arreglo[i] = (char*)calloc(strlen(newString),sizeof(char));
-            strcpy(arreglo[i],newString);
+            arreglo[i] = (char*)calloc(strlen(newString)+1,sizeof(char));
+            strncpy(arreglo[i],newString,strlen(newString)+1);
             //printf("ANTES:\n");
             //showArray(arreglo);
             recorreDesdePosicionUnoEnUno(arreglo,i+1);
@@ -458,7 +458,7 @@ char ** identificaXY(char * cadena_np,int n_operadores){
         }
         XY = bloqueA(XY);
     }
-    printf("MARCA\n");
+
     return XY;
 
 }
