@@ -20,7 +20,7 @@ int main(){
 
     //Variables para la verificacion de la cadena:
     char * aParentesis=NULL;
-    int parentesisValidos;
+    int parentesisValidos=0, variablesValidas=0;
 
     printf("==================================================\n");
     printf("\tPrueba Automatica de Teoremas (PAT)\n");
@@ -67,10 +67,14 @@ int main(){
             aParentesis = obtenerParentesis(razonamiento);
             parentesisValidos = verificaParentesis(aParentesis);
             if(parentesisValidos==0){
-                printf("[Error] Parentesis no validos\n");
+                printf("[Error] Razonamiento no valido: Parentesis no validos\n");
+            }
+            variablesValidas = verificaVariables(razonamiento);
+            if(variablesValidas==0){
+                printf("[Error] Razonamiento no valido: Falta algun operador\n");
             }
             //Si no hay errores entonces hace el procedimiento
-            if(parentesisValidos==1){
+            if(parentesisValidos==1 && variablesValidas==1){
                 //AGREGAMOS A LA COLA EL RAZONAIENTO INGRESADO
                 add(&primero,&ultimo,razonamiento);
                 //LEEMOS EL RAZONAMIENTO INGRESADO DE LA COLA

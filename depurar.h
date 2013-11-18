@@ -120,3 +120,28 @@ char * obtenerParentesis(char * cadena){
     }
     return arregloParentesis;
 }
+
+int verificaVariables(char * cadena){
+    int valido,i;
+    //Regresa 1 si es valida la cadena, 0 en caso contrario
+    for(i=0;i<strlen(cadena);i++){
+        if(cadena[i]!='v'){
+           //Verifica que no existan variables juntas
+            if( (cadena[i]>=65 && cadena[i]<=90) ||  (cadena[i]>=97 && cadena[i]<=122) ){
+                //Si es un caracter
+                if( (cadena[i+1]>=65 && cadena[i+1]<=90) ||  (cadena[i+1]>=97 && cadena[i+1]<=122)){
+                    valido = 0;
+                    return valido;
+                }
+            }
+
+        }
+        if(cadena[i]=='v'){
+            if(cadena[i+1]=='v'){
+                return 0;
+            }
+        }
+    }
+    valido = 1;
+    return valido;
+}
