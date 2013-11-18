@@ -32,3 +32,91 @@ char * strlwr(char * string){
           string++;
        }
 }
+
+/*Funcion que verifica los parentesis de una cadena*/
+int verificaParentesis(char * cadena){
+    //Recibe un arreglo de parentesis, si al final se tienen
+    //equis en todo el arreglo, la cadena es valida, en caso contrario
+    //la cadena es invalida
+    //Regresa 1 si es valida y 0 si es invalida
+    int bandera=0;
+    int banderaFin=0;
+    int tamanio = strlen(cadena);
+    int i=0;
+    do{
+		bandera =0;
+		banderaFin=0;
+        switch(cadena[i]){
+            case '(':
+                cadena[i] = '(';
+                i++;
+                break;
+            case ')':
+                cadena[i]='X';
+                i--;
+                /*Estado Q1*/
+                do{
+                    switch(cadena[i]){
+                        case 'X':
+                            cadena[i]='X';
+                            i--;
+                            break;
+                        case ')':
+                            cadena[i]=')';
+                            i--;
+                            break;
+                        case 32:
+                            cadena[i]=32;
+                            i--;
+                            banderaFin=1;
+                            break;
+                        case '(':
+                            cadena[i]='X';
+                            i++;
+                            bandera = 1;
+                            break;
+                    }
+                }while(i>=0 && i<tamanio && bandera==0 && banderaFin==0);
+                break;
+            case 'X':
+                cadena[i]='X';
+                i++;
+                break;
+            case 32:
+                cadena[i]=32;
+                i++;
+                banderaFin=1;
+                break;
+            default:
+                //printf("ERROR\n");
+                break;
+        }
+    }while(i>=0 && i<tamanio && banderaFin==0);
+    //Verifica si hay equis en todo el arreglo:
+    int bValido=1;
+    //printf("CADENA %s\n",cadena);
+    for(i=0;i<tamanio;i++){
+        //Si hay un caracter distinto a la X, entonces la cadena es invalida
+        //printf("CADENA i: %c\n",cadena[i]);
+        if(cadena[i]!='X'){
+            bValido = 0;
+            return bValido;
+        }
+    }
+    return bValido;
+}
+
+char * obtenerParentesis(char * cadena){
+    //Regresa un arreglo de parentesis}
+    int i,contador=0;
+    char * arregloParentesis=NULL;
+    arregloParentesis = (char*)calloc(1,sizeof(char));
+    for(i=0;i<strlen(cadena);i++){
+        if(cadena[i]=='(' || cadena[i]==')'){
+            arregloParentesis = (char*)realloc(arregloParentesis,sizeof(char)*++contador);
+            arregloParentesis[contador-1] = cadena[i];
+        }
+
+    }
+    return arregloParentesis;
+}

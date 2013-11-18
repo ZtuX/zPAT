@@ -13,9 +13,15 @@ int main(){
     char * razonamientoEnCola; //Variable que saca un razonamiento de la cola
     char ** rCola; //Mostrara el razonamiento que esta en la cola
     char * rInvalido = NULL, **rInvalidoAux=NULL; //Para mostrar el ultimo razonamiento invalido
+
     //VARIABLE QUE SEPARAMOS EN ANTECEDENTE Y CONSECUENTE EL RAZONAMIENTO AUXILIAR PARA
     //MOSTRARLO EN PANTALLA AL FINAL
     char ** rAux;
+
+    //Variables para la verificacion de la cadena:
+    char * aParentesis=NULL;
+    int parentesisValidos;
+
     printf("==================================================\n");
     printf("\tPrueba Automatica de Teoremas (PAT)\n");
     printf("==================================================\n");
@@ -57,37 +63,46 @@ int main(){
             printf("[Error] El operador '=>' encontrado mas de una vez\n");
         }
         else{
-            //AGREGAMOS A LA COLA EL RAZONAIENTO INGRESADO
-            add(&primero,&ultimo,razonamiento);
-            //LEEMOS EL RAZONAMIENTO INGRESADO DE LA COLA
-            razonamientoEnCola = read(&primero,&ultimo);
-
-            //MIENTRAS QUE EXISTAN RAZONAMIENTOS:
-            do{
-                validez = PAT(razonamientoEnCola,&primero,&ultimo);
-                if(validez!=0){
-                    //Mientras sea valido el razonamiento
-                    razonamientoEnCola = read(&primero,&ultimo);
-                    if(razonamientoEnCola!=NULL){
-                        rCola = split(razonamientoEnCola,"=");
-                        printf("\n[+] Analizando el siguiente razonamiento en espera: %s => %s \n",rCola[0],rCola[1]);
-                    }
-                    vFlag = 1;
-                }else{
-                    //Si existe algun razonamiento invalido lo copiamos a rInvalido
-                    rInvalido = (char*)calloc(strlen(razonamientoEnCola)+1,sizeof(char));
-                    strncpy(rInvalido,razonamientoEnCola,strlen(razonamientoEnCola)+1);
-                    vFlag = 0;
-                    break;
-                }
-            }while(razonamientoEnCola!=NULL);
-            if (vFlag == 1){
-                printf("\n[VALIDO] El Razonamiento : %s => %s es valido\n\n",rAux[0],rAux[1]);
-            }else{
-                printf("\n[INVALIDO] El Razonamiento : %s => %s es invalido\n\n",rAux[0],rAux[1]);
+            //Verificamos la cadena (Parentesis)
+            aParentesis = obtenerParentesis(razonamiento);
+            parentesisValidos = verificaParentesis(aParentesis);
+            if(parentesisValidos==0){
+                printf("[Error] Parentesis no validos\n");
             }
-            //VACIAMOS LA COLA
-            primero=ultimo=NULL;
+            //Si no hay errores entonces hace el procedimiento
+            if(parentesisValidos==1){
+                //AGREGAMOS A LA COLA EL RAZONAIENTO INGRESADO
+                add(&primero,&ultimo,razonamiento);
+                //LEEMOS EL RAZONAMIENTO INGRESADO DE LA COLA
+                razonamientoEnCola = read(&primero,&ultimo);
+
+                //MIENTRAS QUE EXISTAN RAZONAMIENTOS:
+                do{
+                    validez = PAT(razonamientoEnCola,&primero,&ultimo);
+                    if(validez!=0){
+                        //Mientras sea valido el razonamiento
+                        razonamientoEnCola = read(&primero,&ultimo);
+                        if(razonamientoEnCola!=NULL){
+                            rCola = split(razonamientoEnCola,"=");
+                            printf("\n[+] Analizando el siguiente razonamiento en espera: %s => %s \n",rCola[0],rCola[1]);
+                        }
+                        vFlag = 1;
+                    }else{
+                        //Si existe algun razonamiento invalido lo copiamos a rInvalido
+                        rInvalido = (char*)calloc(strlen(razonamientoEnCola)+1,sizeof(char));
+                        strncpy(rInvalido,razonamientoEnCola,strlen(razonamientoEnCola)+1);
+                        vFlag = 0;
+                        break;
+                    }
+                }while(razonamientoEnCola!=NULL);
+                if (vFlag == 1){
+                    printf("\n[VALIDO] El Razonamiento : %s => %s es valido\n\n",rAux[0],rAux[1]);
+                }else{
+                    printf("\n[INVALIDO] El Razonamiento : %s => %s es invalido\n\n",rAux[0],rAux[1]);
+                }
+                //VACIAMOS LA COLA
+                primero=ultimo=NULL;
+            }
         }
         cuenta++;
     }

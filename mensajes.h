@@ -39,9 +39,11 @@ void mostrarAyuda(){
     printf("Se tendria que hacer de la siguiente manera:\n");
     printf("\ta^b>c = ~(a^b),c&f\n");
     printf("- - - - - - - - - - - - -\n");
-    printf("[COMANDOS] Comandos del PAT\n");
-    printf("* \"salir\" o \"s\" -> Salir del programa\n");
-    printf("* \"ayuda\" o \"a\" -> Muestra la ayuda\n");
-    printf("* \"invalido\" o \"i\" -> Muestra el ultimo razonamiento invalido\n");
-    printf("* \"limpiar\" o \"l\" -> Limpia la pantalla\n");
+    printf("[COMANDOS] Comandos del PAT\n\n");
+    printf("|Comando|\t|Tecla rapida|\t|Descripcion|\n");
+    printf("salir\t\ts\t\tSalir del programa\n");
+    printf("ayuda\t\ta\t\tMuestra la ayuda\n");
+    printf("invalido\ti\t\tMuestra el ultimo razonamiento invalido\n");
+    printf("limpiar\t\tl\t\tLimpia la pantalla\n");
+    printf("- - - - - - - - - - - - -\n");
 }
