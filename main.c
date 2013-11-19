@@ -10,6 +10,7 @@ int main(){
     int vFlag = 1; //Bandera que verifica si un razonamiento es valido o no
     int validez, invalidos=0, validos=0, total=0, Bool=1;
     int cuenta=0; //
+    int verific=0, z=0, contadorValidos=0; //Funciona como bandera para verificar
     char * razonamientoEnCola; //Variable que saca un razonamiento de la cola
     char ** rCola; //Mostrara el razonamiento que esta en la cola
     char * rInvalido = NULL, **rInvalidoAux=NULL; //Para mostrar el ultimo razonamiento invalido
@@ -18,6 +19,7 @@ int main(){
     //MOSTRARLO EN PANTALLA AL FINAL
     char ** rAux;
     char ** rAux2;
+    char ** comas; //Contendra todos los razonamientos separados con comas
     //Variables para la verificacion de la cadena:
     char * aParentesis=NULL;
     int parentesisValidos=0, cadenaValidaA=0, cadenaValidaB=0;
@@ -34,8 +36,8 @@ int main(){
         consola(cuenta);
         //INGRESAR LA CADENA
         razonamiento = readString();
-        rAux = split(razonamiento,"=");
-        rAux2 = split(razonamiento,"=");
+        rAux = split(razonamiento,"="); //Para verificar
+        rAux2 = split(razonamiento,"=");//Para mostrar
         //Si es un comando
         if(esComando(razonamiento)==1){
             if(strncmp("s",razonamiento,1)==0 || strncmp("salir",razonamiento,5)==0){
@@ -69,27 +71,46 @@ int main(){
             //Pasamos a minusculas el razonamiento
             strlwr(razonamiento);
 
-            //Para verificar el antecedente y el consecuente
-            strlwr(rAux[0]);
-            strlwr(rAux[1]);
-            quitarEspaciosBlanco(rAux[0]);
-            quitarEspaciosBlanco(rAux[1]);
-
             //Verificamos la cadena (Parentesis)
             aParentesis = obtenerParentesis(razonamiento);
             parentesisValidos = verificaParentesis(aParentesis);
             if(parentesisValidos==0){
                 printf("[Error] Razonamiento no valido: Parentesis no validos\n");
             }
-            //Verificamos que no existan dos variables juntas ni operadores juntos
-            cadenaValidaA = verificaCadena(rAux[0]);
-            if(cadenaValidaA==0){
-                printf("[Error] Razonamiento no valido: Error en el antecedente\n");
+
+            //Para verificar el antecedente y el consecuente
+            strlwr(rAux[0]);
+            strlwr(rAux[1]);
+            quitarEspaciosBlanco(rAux[0]); //Quita espacios en blanco de antecedente
+            quitarEspaciosBlanco(rAux[1]); //Quita espacios en blanco de consecuente
+
+            comas = split(rAux[0],",");
+            for(verific=0;verific<stringArraySize(comas);verific++){
+                z = verificaCadena(comas[verific]);
+                if(z==1) contadorValidos++;
             }
-            cadenaValidaB = verificaCadena(rAux[1]);
-            if(cadenaValidaB==0){
-                printf("[Error] Razonamiento no valido: Error en el consecuente\n");
+            if(contadorValidos==stringArraySize(comas)){
+                //Si son iguales quiere decir queno hay errores
+                cadenaValidaA=1;
+            }else{
+                printf("[Error] Razonamiento no valido: Error en el Antecedente\n");
+                cadenaValidaA=0;
             }
+
+            comas = split(rAux[1],",");
+            contadorValidos =0;
+            for(verific=0;verific<stringArraySize(comas);verific++){
+                z = verificaCadena(comas[verific]);
+                if(z==1) contadorValidos++;
+            }
+            if(contadorValidos==stringArraySize(comas)){
+                //Si son iguales quiere decir queno hay errores
+                cadenaValidaB=1;
+            }else{
+                printf("[Error] Razonamiento no valido: Error en el Consecuente\n");
+                cadenaValidaB=0;
+            }
+
             //Si no hay errores entonces hace el procedimiento
             if(parentesisValidos==1 && cadenaValidaA==1 && cadenaValidaB==1){
                 //AGREGAMOS A LA COLA EL RAZONAIENTO INGRESADO
@@ -126,6 +147,8 @@ int main(){
             }
         }
         cuenta++;
+        verific=0, z=0, contadorValidos=0; //Resetamos las banderas
+        parentesisValidos=0;
     }
     return 0;
 }
