@@ -58,7 +58,7 @@ char **split(char * string_toSplit,char *symbol){
 char **split(char * string_toSplit,char *symbol){
     //To Split Strings
 
-    /*0x0000*/
+    /*0x0000 Copia de la cadena para NO modificar la cadena original*/
     char * string_toSPLIT = NULL;
 	string_toSPLIT = (char*)calloc(strlen(string_toSplit),sizeof(char)+1);
     strcpy(string_toSPLIT,string_toSplit);
@@ -74,15 +74,20 @@ char **split(char * string_toSplit,char *symbol){
         strcpy(stringArray[n_spaces-1]," ");
     }
 
+    char * cadenaAux = NULL; //Para evitar el buffer overflow
     char *  p = strtok (string_toSPLIT,symbol);
     while (p){
         stringArray = (char**)realloc (stringArray, sizeof (char*) * ++n_spaces);
         if (stringArray == NULL)
-            exit (-1); /* memory allocation failed */
-        stringArray[n_spaces-1] = p;
+            exit (-1); /* Fallo la asignacion de memoria*/
+        cadenaAux = (char*)calloc(strlen(p)+1,sizeof(char));
+        strncpy(cadenaAux,p,strlen(p));
+        stringArray[n_spaces-1] = (char*)calloc(strlen(cadenaAux)+1,sizeof(char));
+        //stringArray[n_spaces-1] = p;
+        strncpy(stringArray[n_spaces-1],cadenaAux,strlen(cadenaAux));
         p = strtok (NULL,symbol);
     }
-    /* realloc one extra element for the last NULL */
+    /* realloc un elemento extra para el ultimo elemento NULLL */
     stringArray = (char**)realloc (stringArray, sizeof (char*) * (n_spaces+1));
     stringArray[n_spaces] = NULL;
     //for (i = 0; i < (n_spaces+1); ++i)

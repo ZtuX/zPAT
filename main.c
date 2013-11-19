@@ -59,6 +59,9 @@ int main(){
             else if(strncmp("l",razonamiento,1)==0 || strncmp("limpiar",razonamiento,7)==0){
                 system("clear");
             }
+            else if(strncmp("v",razonamiento,1)==0 || strncmp("version",razonamiento,7)==0){
+                version();
+ 	    }
         }
         else if(stringArraySize(rAux)<2){
                 printf("[Error] Falta el operador '=>'\n");

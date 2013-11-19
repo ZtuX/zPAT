@@ -1,6 +1,6 @@
-#define nComandos 8
+#define nComandos 10
 
-char * comandos [] = {"ayuda","a","salir","s","invalido","i","limpiar","l"};
+char * comandos [] = {"ayuda","a","salir","s","invalido","i","limpiar","l","v","version"};
 
 int esComando(char * comando){
     //regresa un 1 si es un comando, en caso comtrario 0
@@ -45,5 +45,21 @@ void mostrarAyuda(){
     printf("ayuda\t\ta\t\tMuestra la ayuda\n");
     printf("invalido\ti\t\tMuestra el ultimo razonamiento invalido\n");
     printf("limpiar\t\tl\t\tLimpia la pantalla\n");
+    printf("version\t\tv\t\tMuestra la version del programa\n");
     printf("- - - - - - - - - - - - -\n");
+}
+
+void version(){
+    printf("		 ____   _  _____\n"); 
+    printf("		|  _ \\ / \\|_   _|\n");
+    printf("		| |_) / _ \\ | |\n");
+    printf("		|  __/ ___ \\| |\n");  
+    printf("		|_| /_/   \\_\\_|\n"); 
+    printf("\n");             
+    printf("	--=[P]rueba [A]utomatica de [T]eoremas [PAT]\n");
+    printf("+---**---==[Version : 1.0.0\n");
+    printf("+---**---==[Codename : Genesis\n");
+    printf("+---**---==[Desarrollador : Hernandez Alarcon Jesus Alfredo\n");
+    printf("	--=[Update Date : [19.11.2013]\n");
+    printf("\n");
 }
