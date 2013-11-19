@@ -125,7 +125,7 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
                 //return 0;
                 //memset(R->trabajando,'\0',strlen(R->trabajando));
                 //COPIAR EL NUEVO ANTECEDENTE Y CONSECUENTE EN LAS CADENAS CORRESPONDIENTES
-                printf("ANTE: %s\nConse: %s\n",ANTE_CONSE[0],ANTE_CONSE[1]);
+                //[*]printf("ANTE: %s\nConse: %s\n",ANTE_CONSE[0],ANTE_CONSE[1]);
                 R->Antecedente = (char*)calloc(strlen(ANTE_CONSE[0])+1,sizeof(char));
                 R->Consecuente = (char*)calloc(strlen(ANTE_CONSE[1])+1,sizeof(char));
                 strncat(R->Antecedente,ANTE_CONSE[0],strlen(ANTE_CONSE[0])+1);
