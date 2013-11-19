@@ -17,10 +17,10 @@ int main(){
     //VARIABLE QUE SEPARAMOS EN ANTECEDENTE Y CONSECUENTE EL RAZONAMIENTO AUXILIAR PARA
     //MOSTRARLO EN PANTALLA AL FINAL
     char ** rAux;
-
+    char ** rAux2;
     //Variables para la verificacion de la cadena:
     char * aParentesis=NULL;
-    int parentesisValidos=0, variablesValidas=0;
+    int parentesisValidos=0, cadenaValidaA=0, cadenaValidaB=0;
 
     printf("==================================================\n");
     printf("\tPrueba Automatica de Teoremas (PAT)\n");
@@ -35,6 +35,7 @@ int main(){
         //INGRESAR LA CADENA
         razonamiento = readString();
         rAux = split(razonamiento,"=");
+        rAux2 = split(razonamiento,"=");
         //Si es un comando
         if(esComando(razonamiento)==1){
             if(strncmp("s",razonamiento,1)==0 || strncmp("salir",razonamiento,5)==0){
@@ -63,18 +64,34 @@ int main(){
             printf("[Error] El operador '=>' encontrado mas de una vez\n");
         }
         else{
+            //Eliminar espacios en blanco de la expresión
+            quitarEspaciosBlanco(razonamiento);
+            //Pasamos a minusculas el razonamiento
+            strlwr(razonamiento);
+
+            //Para verificar el antecedente y el consecuente
+            strlwr(rAux[0]);
+            strlwr(rAux[1]);
+            quitarEspaciosBlanco(rAux[0]);
+            quitarEspaciosBlanco(rAux[1]);
+
             //Verificamos la cadena (Parentesis)
             aParentesis = obtenerParentesis(razonamiento);
             parentesisValidos = verificaParentesis(aParentesis);
             if(parentesisValidos==0){
                 printf("[Error] Razonamiento no valido: Parentesis no validos\n");
             }
-            variablesValidas = verificaVariables(razonamiento);
-            if(variablesValidas==0){
-                printf("[Error] Razonamiento no valido: Falta algun operador\n");
+            //Verificamos que no existan dos variables juntas ni operadores juntos
+            cadenaValidaA = verificaCadena(rAux[0]);
+            if(cadenaValidaA==0){
+                printf("[Error] Razonamiento no valido: Error en el antecedente\n");
+            }
+            cadenaValidaB = verificaCadena(rAux[1]);
+            if(cadenaValidaB==0){
+                printf("[Error] Razonamiento no valido: Error en el consecuente\n");
             }
             //Si no hay errores entonces hace el procedimiento
-            if(parentesisValidos==1 && variablesValidas==1){
+            if(parentesisValidos==1 && cadenaValidaA==1 && cadenaValidaB==1){
                 //AGREGAMOS A LA COLA EL RAZONAIENTO INGRESADO
                 add(&primero,&ultimo,razonamiento);
                 //LEEMOS EL RAZONAMIENTO INGRESADO DE LA COLA
@@ -100,9 +117,9 @@ int main(){
                     }
                 }while(razonamientoEnCola!=NULL);
                 if (vFlag == 1){
-                    printf("\n[VALIDO] El Razonamiento : %s => %s es valido\n\n",rAux[0],rAux[1]);
+                    printf("\n[VALIDO] El Razonamiento : %s => %s es valido\n\n",rAux2[0],rAux2[1]);
                 }else{
-                    printf("\n[INVALIDO] El Razonamiento : %s => %s es invalido\n\n",rAux[0],rAux[1]);
+                    printf("\n[INVALIDO] El Razonamiento : %s => %s es invalido\n\n",rAux2[0],rAux2[1]);
                 }
                 //VACIAMOS LA COLA
                 primero=ultimo=NULL;

@@ -20,12 +20,6 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
     int valido=0;
     int i=0; //Variable que sirve como indice en los arreglos
     //IDENTIFICAR ANTECEDENTE Y CONSECUENTE
-    //Eliminar espacios en blanco de la expresión
-    quitarEspaciosBlanco(razonamiento);
-    //Pasamos a minusculas el razonamiento
-    strlwr(razonamiento);
-
-    //Falta agregar si es valida la sintaxis o no
 
     //Separar en antecedente y consecuente
     char ** Array=NULL;

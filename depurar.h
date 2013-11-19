@@ -121,27 +121,75 @@ char * obtenerParentesis(char * cadena){
     return arregloParentesis;
 }
 
-int verificaVariables(char * cadena){
-    int valido,i;
-    //Regresa 1 si es valida la cadena, 0 en caso contrario
-    for(i=0;i<strlen(cadena);i++){
-        if(cadena[i]!='v'){
-           //Verifica que no existan variables juntas
-            if( (cadena[i]>=65 && cadena[i]<=90) ||  (cadena[i]>=97 && cadena[i]<=122) ){
-                //Si es un caracter
-                if( (cadena[i+1]>=65 && cadena[i+1]<=90) ||  (cadena[i+1]>=97 && cadena[i+1]<=122)){
-                    valido = 0;
-                    return valido;
-                }
-            }
 
-        }
-        if(cadena[i]=='v'){
-            if(cadena[i+1]=='v'){
-                return 0;
-            }
+const char opsVerificar[5] = {'>','^','v','&'}; //Arreglo sin incluir el negado
+
+int opValido(char c){
+    /*Regresa el valor de 1 si el caracter c es operador o parentesis ( ó )
+      en caso contrario es una variable y regresa 0.*/
+    int i;
+    for(i=0;i<strlen(opsVerificar);i++){
+        if(c==opsVerificar[i]){
+            //printf("Encontre %c\n",operar[i]);
+            return 1;
         }
     }
-    valido = 1;
-    return valido;
+    return 0;
+}
+
+int verificaCadena(char * cadena){
+    //Verifica si una cadena es valida, regresa 1 si es valida,
+    // en caso contrario regresa 0
+    int tamanio = strlen(cadena);
+    int i=0;
+    do{
+        if(opValido(cadena[i])==1){
+            //Si es un operador
+            cadena[i]='Y';
+            i--;
+        }
+        else if( cadena[i]!='v' && (cadena[i]>=97 &&cadena[i]<=122) ){
+            //Si es una variable
+            cadena[i]='X';
+            i++;
+        }
+        else if(cadena[i]=='X'){
+            i++;
+        }
+        else if(cadena[i]=='Y'){
+            i++;
+        }
+        else if(cadena[i]=='~'){
+            cadena[i]=32;
+            i++;
+        }
+        else if(cadena[i]=='(' || cadena[i]==')'){
+            cadena[i]=32;
+            i++;
+        }
+        else if(cadena[i]==32){
+            i++;
+        }else{
+            return 0; //Si no es ninguno de esos caracteres en automatico dice que es invalido
+        }
+    }while(i>=0 && i<tamanio);
+    //Recorremos el arreglo para verificar que este intercalado con X y Y
+    quitarEspaciosBlanco(cadena);
+    tamanio = strlen(cadena);
+    //printf("TAMANIO: %d\n",tamanio);
+    //printf("Cadena al final: %s\n",cadena);
+    for(i=0;i<tamanio-1;i++){
+        //Si no estan alternados con X y Y esntonces es invalida...
+        //printf("Cadena[i]: %c\n",cadena[i]);
+        //printf("ANALIZANDO cadena[%d]:%c y cadena[%d+1]:%c\n",i,cadena[i],i,cadena[i+1]);
+        //printf("i:%d\n",i);
+        if(cadena[i]=='X' && cadena[i+1]!='Y'){
+                return 0;
+        }
+        else if (cadena[i]=='Y' && cadena[i+1]!='X'){
+                return 0;
+        }
+        //printf("i:%d\n",i);
+    }
+    return 1;
 }
