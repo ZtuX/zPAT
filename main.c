@@ -96,7 +96,7 @@ int main(){
                 //Si son iguales quiere decir queno hay errores
                 cadenaValidaA=1;
             }else{
-                printf("[Error] Razonamiento no valido: Error en el Antecedente\n");
+                printf("[Error] Razonamiento no valido: Error de sintaxis en el Antecedente\n");
                 cadenaValidaA=0;
             }
 
@@ -110,7 +110,7 @@ int main(){
                 //Si son iguales quiere decir queno hay errores
                 cadenaValidaB=1;
             }else{
-                printf("[Error] Razonamiento no valido: Error en el Consecuente\n");
+                printf("[Error] Razonamiento no valido: Error de sintaxis en el Consecuente\n");
                 cadenaValidaB=0;
             }
 
