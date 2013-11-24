@@ -33,11 +33,12 @@ void mostrarRazonamiento(char *antecedent,char *consequent){
 
 int contarSimbolos(char *str){
     //Cuenta los simbolos (OPERADORES), que hay en una cadena
-    char * aux = NULL;
-    aux = (char*)calloc(strlen(str),sizeof(char));
-    strcpy(aux,str);
+    //char * aux = NULL;
+    //aux = (char*)calloc(strlen(str)+1,sizeof(char)+1);
+    //strncpy(aux,str,strlen(str)+1);
     int index,index2,counter=0;
-    for(index=0;index<strlen(aux);index++){
+    //for(index=0;index<strlen(aux);index++){
+    for(index=0;index<strlen(str);index++){
         for (index2=0;index2<5;index2++){
             if(str[index]==ops[index2]){
                 counter++;

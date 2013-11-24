@@ -183,6 +183,13 @@ int verificaCadena(char * cadena){
         //printf("Cadena[i]: %c\n",cadena[i]);
         //printf("ANALIZANDO cadena[%d]:%c y cadena[%d+1]:%c\n",i,cadena[i],i,cadena[i+1]);
         //printf("i:%d\n",i);
+        //printf("Tamanio: %d\n",tamanio);
+        if(i==0 && cadena[i]=='Y'){
+            return 0;
+        }
+        if(i==tamanio-2 && cadena[i+1]=='Y'){
+            return 0;
+        }
         if(cadena[i]=='X' && cadena[i+1]!='Y'){
                 return 0;
         }
