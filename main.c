@@ -1,3 +1,10 @@
+/*main: PAT, programado para su funcionamiento bajo GNU/Linux
+Para compilar el programa:
+$ gcc -o main main.c
+
+Hernandez Alarcon Jesus Alfredo
+*/
+
 #include "functions.h" //FUNCIONES PARA LECTURA DE CADENAS
 #include "queue.h"     //COlA
 #include "pat.h"
@@ -142,6 +149,7 @@ int main(){
                 }while(razonamientoEnCola!=NULL);
                 if (vFlag == 1){
                     printf("\n[VALIDO] El Razonamiento : %s => %s es valido\n\n",rAux2[0],rAux2[1]);
+                    return 0;
                 }else{
                     printf("\n[INVALIDO] El Razonamiento : %s => %s es invalido\n\n",rAux2[0],rAux2[1]);
                 }

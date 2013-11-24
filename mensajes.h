@@ -25,7 +25,7 @@ void simbologia(){
 }
 
 void consola(int cuenta){
-    printf("($%d PAT) ",cuenta);
+    printf("$%d (PAT) ",cuenta);
 }
 
 void mostrarAyuda(){
@@ -50,16 +50,16 @@ void mostrarAyuda(){
 }
 
 void version(){
-    printf("		 ____   _  _____\n"); 
+    printf("		 ____   _  _____\n");
     printf("		|  _ \\ / \\|_   _|\n");
     printf("		| |_) / _ \\ | |\n");
-    printf("		|  __/ ___ \\| |\n");  
-    printf("		|_| /_/   \\_\\_|\n"); 
-    printf("\n");             
+    printf("		|  __/ ___ \\| |\n");
+    printf("		|_| /_/   \\_\\_|\n");
+    printf("\n");
     printf("	--=[P]rueba [A]utomatica de [T]eoremas [PAT]\n");
-    printf("+---**---==[Version : 1.0.0\n");
+    printf("+---**---==[Version : 1.0.1\n");
     printf("+---**---==[Codename : Genesis\n");
     printf("+---**---==[Desarrollador : Hernandez Alarcon Jesus Alfredo\n");
-    printf("	--=[Update Date : [19.11.2013]\n");
+    printf("	--=[Update Date : [23.11.2013]\n");
     printf("\n");
 }

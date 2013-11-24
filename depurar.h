@@ -102,6 +102,7 @@ int verificaParentesis(char * cadena){
             bValido = 0;
             return bValido;
         }
+        if(strlen(cadena)==1 && cadena[0]=='X') return 0;
     }
     return bValido;
 }

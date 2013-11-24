@@ -30,7 +30,7 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
     }*/
 
     //CREAMOS LA ESTRUCTIRA DE UN NUEVO RAZONAMIENTO
-    RAZONAMIENTO R = NULL;
+    RAZONAMIENTO R; //= NULL;
     R = (RAZONAMIENTO)calloc(1,sizeof(RAZONAMIENTO));
     R->Antecedente = (char*)calloc(strlen(Array[0])+1,sizeof(char)+1);
     if(stringArraySize(Array)==1){
@@ -39,7 +39,7 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
     }else{
         R->Consecuente = (char*)calloc(strlen(Array[1])+1,sizeof(char)+1);
     }
-    R->trabajando = NULL;
+    //R->trabajando = NULL;
     R->Antecedente = Array[0]; //strcpy(R->Antecedente,Array[0]);
     if(stringArraySize(Array)==1){
         //En caso de no tener nada en el consecuente
@@ -184,5 +184,18 @@ int PAT(char * razonamiento,pNode * primero, pNode * ultimo){
             return 0;
         }
     }
+    /*Liberamos la memoria...*/
+    memset(R->trabajando,0,strlen(R->trabajando));
+    free(R->trabajando);
+    R->trabajando=NULL;
+    memset(R->Antecedente,0,strlen(R->Antecedente));
+    free(R->Antecedente);
+    R->Antecedente=NULL;
+    memset(R->Consecuente,0,strlen(R->Consecuente));
+    free(R->Consecuente);
+    R->Consecuente;
+    memset(R,0,sizeof(R));
+    free(R);
+    R=NULL;
     return valido;
 }

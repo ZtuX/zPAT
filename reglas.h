@@ -75,7 +75,7 @@ char ** negadoA(char * antecedente,char * consecuente){
     if(contarNegados(strAux[MS])==1){
         strAux[MS]=limpiarParentesis(strAux[MS]);
         //printf("STR: %s\n",strAux[MS]);
-        X =(char*)calloc(strlen(strAux[MS]),sizeof(char));
+        X =(char*)calloc(strlen(strAux[MS])+1,sizeof(char));
         strncat(X,strAux[MS]+1,strlen(strAux[MS]));
         //printf("\t-> X: %s\n",X);
     }else{

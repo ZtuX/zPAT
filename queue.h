@@ -19,9 +19,9 @@ void add(pNode *first, pNode * last, char * value) {
 
    /*Make a new node */
    newNode = (pNode)malloc(sizeof(nodeType));
-   newNode->value = (char*)calloc(strlen(value),sizeof(char)+1);
+   newNode->value = (char*)calloc(strlen(value)+1,sizeof(char)+1);
    /*Copy the value from argument*/
-   strcpy(newNode->value,value);
+   strncat(newNode->value,value,strlen(value)+1);
 
    /* Last node, points to NULL */
    newNode->next = NULL;
@@ -41,8 +41,8 @@ char * read(pNode *first, pNode *last) {
    if(!node) return 0; /*If there aren't nodes, we'll return 0*/
    *first = node->next;
    /* Save the return value */
-   value = (char*)calloc(strlen(node->value),sizeof(char)+1);
-   strcpy(value,node->value);
+   value = (char*)calloc(strlen(node->value)+1,sizeof(char)+1);
+   strncat(value,node->value,strlen(node->value)+1);
    /* Delete the node */
    free(node);
    /* If the queue is empty, the last element points to NULL*/
