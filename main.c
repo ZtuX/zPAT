@@ -152,6 +152,7 @@ int main(){
                     return 0;
                 }else{
                     printf("\n[INVALIDO] El Razonamiento : %s => %s es invalido\n\n",rAux2[0],rAux2[1]);
+                    return 0;
                 }
                 //VACIAMOS LA COLA
                 primero=ultimo=NULL;
